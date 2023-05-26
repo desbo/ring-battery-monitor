@@ -12,16 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Create .env
-        uses: iamsauravsharma/create-dotenv@v1.2.2
+        uses: actually-colab/github-action-create-env-file@v2.3
         with:
-          env-prefix: ''
-          file-name: '.env'
-          directory: 'functions/'
-        env:
-          RING_REFRESH_TOKEN: ${{ secrets.RING_REFRESH_TOKEN }}
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          EMAIL_SENDER: ${{ vars.EMAIL_SENDER }}
-          EMAIL_RECIPIENT: ${{ vars.EMAIL_RECIPIENT }}
+          envkey_RING_REFRESH_TOKEN: ${{ secrets.RING_REFRESH_TOKEN }}
+          envkey_SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          envkey_EMAIL_SENDER: ${{ vars.EMAIL_SENDER }}
+          envkey_EMAIL_RECIPIENT: ${{ vars.EMAIL_RECIPIENT }}
+          directory: functions
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
