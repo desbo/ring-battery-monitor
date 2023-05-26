@@ -13,6 +13,8 @@ jobs:
         uses: actions/checkout@master
       - name: Create .env
         uses: iamsauravsharma/create-dotenv@v1.2.2
+        with: 
+          directory: 'functions' 
         env:
           RING_REFRESH_TOKEN: ${{ secrets.RING_REFRESH_TOKEN }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
