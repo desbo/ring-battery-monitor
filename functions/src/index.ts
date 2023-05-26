@@ -1,6 +1,6 @@
 import {onSchedule} from "firebase-functions/v2/scheduler";
 import {defineSecret, defineString} from "firebase-functions/params";
-import {log} from  "firebase-functions/logger";
+import {log} from "firebase-functions/logger";
 
 import {RingApi} from "ring-client-api";
 import {batteryLife, checkBatteryLevel} from "./ring";
@@ -14,7 +14,7 @@ const emailSender = defineString("EMAIL_SENDER");
 const emailRecipient = defineString("EMAIL_RECIPIENT");
 
 export const notifyOnLowBattery = onSchedule("every day 06:00",
-  async (event) => {
+  async () => {
     const client = new RingApi({refreshToken: ringRefreshToken.value()});
     const allLevels = await batteryLife(client);
 
