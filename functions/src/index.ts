@@ -13,26 +13,27 @@ const sendGridApiKey = defineSecret("SENDGRID_API_KEY");
 const emailSender = defineString("EMAIL_SENDER");
 const emailRecipient = defineString("EMAIL_RECIPIENT");
 
-export const notifyOnLowBattery = onSchedule("every day 06:00",
-  async () => {
-    const client = new RingApi({refreshToken: ringRefreshToken.value()});
-    const allLevels = await batteryLife(client);
+export const notifyOnLowBattery = onSchedule({
+  schedule: "every day 06:00", 
+  region: "europe-west1"
+}, async () => {
+  const client = new RingApi({refreshToken: ringRefreshToken.value()});
+  const allLevels = await batteryLife(client);
 
-    const lowBattery = allLevels.find((levels) =>
-      checkBatteryLevel(levels, (l) => l < 10)
+  const lowBattery = allLevels.find((levels) =>
+    checkBatteryLevel(levels, (l) => l < 10)
+  );
+
+  if (lowBattery) {
+    sendEmail(
+      sendGridApiKey.value(),
+      emailSender.value(),
+      emailRecipient.value(),
+      "low battery in Ring camera",
+      (lowBattery.leftLevel ? `left level: ${lowBattery.leftLevel}%\n` : "") +
+      (lowBattery.rightLevel ? `right level: ${lowBattery.rightLevel}%` : "")
     );
-
-    if (lowBattery) {
-      sendEmail(
-        sendGridApiKey.value(),
-        emailSender.value(),
-        emailRecipient.value(),
-        "low battery in Ring camera",
-        (lowBattery.leftLevel ? `left level: ${lowBattery.leftLevel}%\n` : "") +
-        (lowBattery.rightLevel ? `right level: ${lowBattery.rightLevel}%` : "")
-      );
-    }
-
-    log(allLevels);
   }
-);
+
+  log(allLevels);
+});
