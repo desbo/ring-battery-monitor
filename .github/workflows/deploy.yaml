@@ -13,14 +13,15 @@ jobs:
         uses: actions/checkout@master
       - name: Create .env
         uses: iamsauravsharma/create-dotenv@v1.2.2
+        with:
+          env-prefix: ''
+          file-name: '.env'
+          directory: 'functions/'
         env:
           RING_REFRESH_TOKEN: ${{ secrets.RING_REFRESH_TOKEN }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           EMAIL_SENDER: ${{ vars.EMAIL_SENDER }}
           EMAIL_RECIPIENT: ${{ vars.EMAIL_RECIPIENT }}
-          env-prefix: ''
-          file-name: '.env'
-          directory: 'functions/'
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
