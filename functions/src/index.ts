@@ -13,7 +13,7 @@ const emailSender = defineString("EMAIL_SENDER");
 const emailRecipient = defineString("EMAIL_RECIPIENT");
 
 export const notifyOnLowBattery = onRequest(
-  {secrets: [ringRefreshToken, sendGridApiKey]},
+  {secrets: [ringRefreshToken, sendGridApiKey], region: "europe-west1"},
   async (req, res) => {
     const client = new RingApi({refreshToken: ringRefreshToken.value()});
     const allLevels = await batteryLife(client);
