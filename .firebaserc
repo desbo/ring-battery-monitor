@@ -1,7 +1,0 @@
-{
-  "projects": {
-    "prod": "ring-battery-monitor"
-  },
-  "targets": {},
-  "etags": {}
-}
