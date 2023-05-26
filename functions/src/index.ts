@@ -1,5 +1,6 @@
-import {onRequest} from "firebase-functions/v2/https";
+import {onSchedule} from "firebase-functions/v2/scheduler";
 import {defineSecret, defineString} from "firebase-functions/params";
+import {log} from  "firebase-functions/logger";
 
 import {RingApi} from "ring-client-api";
 import {batteryLife, checkBatteryLevel} from "./ring";
@@ -12,14 +13,13 @@ const sendGridApiKey = defineSecret("SENDGRID_API_KEY");
 const emailSender = defineString("EMAIL_SENDER");
 const emailRecipient = defineString("EMAIL_RECIPIENT");
 
-export const notifyOnLowBattery = onRequest(
-  {secrets: [ringRefreshToken, sendGridApiKey], region: "europe-west1"},
-  async (req, res) => {
+export const notifyOnLowBattery = onSchedule("every day 06:00",
+  async (event) => {
     const client = new RingApi({refreshToken: ringRefreshToken.value()});
     const allLevels = await batteryLife(client);
 
     const lowBattery = allLevels.find((levels) =>
-      checkBatteryLevel(levels, (l) => l < 100)
+      checkBatteryLevel(levels, (l) => l < 10)
     );
 
     if (lowBattery) {
@@ -33,6 +33,6 @@ export const notifyOnLowBattery = onRequest(
       );
     }
 
-    res.send(allLevels);
+    log(allLevels);
   }
 );
