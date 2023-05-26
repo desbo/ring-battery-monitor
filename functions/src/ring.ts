@@ -1,4 +1,4 @@
-import { RingApi } from 'ring-client-api'
+import {RingApi} from "ring-client-api";
 
 interface BatteryLevel {
   deviceName: string,
@@ -7,16 +7,16 @@ interface BatteryLevel {
 }
 
 export const batteryLife = async (ring: RingApi): Promise<BatteryLevel[]> =>
-  (await ring.getCameras()).map(camera => {
+  (await ring.getCameras()).map((camera) => {
     if ("battery_life" in camera.data) {
       return {
         deviceName: camera.data.description,
         leftLevel: +(camera.data.battery_life || 0),
-        rightLevel: +(camera.data.battery_life_2 || 0)
-      }
+        rightLevel: +(camera.data.battery_life_2 || 0),
+      };
     }
 
     return {
-      deviceName: camera.data.description
-    }
-  }) 
+      deviceName: camera.data.description,
+    };
+  });

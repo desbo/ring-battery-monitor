@@ -1,16 +1,16 @@
-const { onRequest } = require('firebase-functions/v2/https');
-const { defineString } = require('firebase-functions/params');
+import {onRequest} from "firebase-functions/v2/https";
+import {defineSecret} from "firebase-functions/params";
 
-import { RingApi } from "ring-client-api";
-import { batteryLife } from "./ring"
+import {RingApi} from "ring-client-api";
+import {batteryLife} from "./ring";
 
-const refreshToken = defineString('REFRESH_TOKEN');
+const refreshToken = defineSecret("REFRESH_TOKEN");
 
 export const batteryLevels = onRequest(
-  { refreshToken },
+  {secrets: [refreshToken]},
   async (req, res) => {
-    const client = new RingApi({ refreshToken })
-    const levels = await batteryLife(client)
-    res.send(levels)
+    const client = new RingApi({refreshToken: refreshToken.value()});
+    const levels = await batteryLife(client);
+    res.send(levels);
   }
 );
