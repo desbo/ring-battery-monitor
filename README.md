@@ -5,7 +5,7 @@ A tool to check the battery level of a Ring camera and send an email notificatio
 The official Ring software used to send low battery notifications, but the feature was removed.
 
 ## How?
-This is a Firebase function that runs each morning and uses [ring-client-api]([ring-client-api](https://github.com/dgreif/ring/tree/main/packages/ring-client-api)) to check the battery level and send an email notification when it's below 10%.
+This is a Firebase function that runs each morning and uses [ring-client-api](https://github.com/dgreif/ring/tree/main/packages/ring-client-api) to check the battery level and send an email notification when it's below 10%.
 
 If you want to use this yourself, there are a few steps to follow:
 
