@@ -14,8 +14,8 @@ const emailSender = defineString("EMAIL_SENDER");
 const emailRecipient = defineString("EMAIL_RECIPIENT");
 
 export const notifyOnLowBattery = onSchedule({
-  schedule: "every day 06:00", 
-  region: "europe-west1"
+  schedule: "every day 06:00",
+  region: "europe-west1",
 }, async () => {
   const client = new RingApi({refreshToken: ringRefreshToken.value()});
   const allLevels = await batteryLife(client);
