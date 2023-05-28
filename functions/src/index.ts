@@ -22,8 +22,8 @@ export const notifyOnLowBattery = onSchedule({
   const allLevels = await batteryLife(client);
 
   const lowBattery = allLevels.find((levels) => {
-    const result = checkBatteryLevel(levels, (l) => l < 10)
-    result.left || result.right
+    const result = checkBatteryLevel(levels, (l) => l < 10);
+    result.left || result.right;
   });
 
   if (lowBattery) {
