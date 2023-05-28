@@ -21,9 +21,10 @@ export const notifyOnLowBattery = onSchedule({
   const client = new RingApi({refreshToken: ringRefreshToken.value()});
   const allLevels = await batteryLife(client);
 
-  const lowBattery = allLevels.find((levels) =>
-    checkBatteryLevel(levels, (l) => l < 10)
-  );
+  const lowBattery = allLevels.find((levels) => {
+    const result = checkBatteryLevel(levels, (l) => l < 10)
+    result.left || result.right
+  });
 
   if (lowBattery) {
     sendEmail(
