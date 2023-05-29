@@ -19,7 +19,7 @@
     "@sendgrid/mail": "^7.7.0",
     "firebase-admin": "^11.8.0",
     "firebase-functions": "^4.3.1",
-    "ring-client-api": "^11.7.5"
+    "ring-client-api": "^11.7.7"
   },
   "devDependencies": {
     "@types/ws": "^8.5.4",
