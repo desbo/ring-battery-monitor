@@ -37,5 +37,5 @@ export const notifyOnLowBattery = onSchedule({
     );
   }
 
-  log(allLevels);
+  log(JSON.stringify(allLevels));
 });
