@@ -14,7 +14,7 @@ const emailSender = defineString("EMAIL_SENDER");
 const emailRecipient = defineString("EMAIL_RECIPIENT");
 
 export const notifyOnLowBattery = onSchedule({
-  schedule: "every day 06:00",
+  schedule: "0 * * * *",
   region: "europe-west1",
   secrets: [ringRefreshToken, sendGridApiKey],
 }, async () => {
